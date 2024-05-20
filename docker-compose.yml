@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: nest-docker-postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend/src:/app/src

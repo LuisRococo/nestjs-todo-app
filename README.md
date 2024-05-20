@@ -2,7 +2,7 @@
 
 # TODO APP
 
-TODO APP using the next stack:
+TODO APP using the following stack:
 
 - ReactJS with TS
 - Jest
@@ -10,3 +10,11 @@ TODO APP using the next stack:
 - Material UI
 - NestJS
 - SQL Database
+
+# SETUP
+
+1. Run docker
+
+```
+$ docker compose up
+```
