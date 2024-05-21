@@ -3,3 +3,6 @@
 
 # Docker
 dbdata
+
+# Others
+.env
