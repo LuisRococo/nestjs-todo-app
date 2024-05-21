@@ -5,8 +5,43 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    container_name: nest-docker-postgres
+    container_name: nestjs
     ports:
       - "3000:3000"
     volumes:
       - ./backend/src:/app/src
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+  db:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_PASSWORD: rootroot
+      MYSQL_DATABASE: todo_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    networks:
+      - my_network
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootroot
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
