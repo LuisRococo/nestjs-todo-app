@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -16,6 +17,11 @@ import { User } from './users/user.entity';
       database: process.env.DB_NAME,
       entities: [User],
       synchronize: true,
+    }),
+    JwtModule.register({
+      secretOrPrivateKey: process.env.SECRET,
+      global: true,
+      signOptions: { expiresIn: '2h' },
     }),
     UsersModule,
   ],
