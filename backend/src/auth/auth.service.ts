@@ -51,4 +51,8 @@ export class AuthService {
       HttpStatus.UNAUTHORIZED,
     );
   }
+
+  getJwtTokenPayload(token: string) {
+    return this.jwtService.decode(token);
+  }
 }
