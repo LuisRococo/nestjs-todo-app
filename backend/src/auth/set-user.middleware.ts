@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 import { UserService } from 'src/users/user.service';
 
 @Injectable()
-export class AuthMiddleware implements NestMiddleware {
+export class SetUserMiddleware implements NestMiddleware {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
