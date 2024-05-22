@@ -13,6 +13,12 @@ TODO APP using the following stack:
 
 # SETUP
 
+1. Create `.env`file
+
+```
+$ cp ./backend/.env.template ./backend/.env
+```
+
 1. Run docker
 
 ```
