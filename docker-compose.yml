@@ -3,8 +3,8 @@ version: "3.8"
 services:
   backend:
     build:
-      context: .
-      dockerfile: ./backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: backend
     ports:
       - "3000:3000"
@@ -14,6 +14,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - my_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
+    depends_on:
+      - backend
     networks:
       - my_network
 

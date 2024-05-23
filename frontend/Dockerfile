@@ -9,4 +9,4 @@ RUN yarn install
 
 COPY . .
 
-CMD [ "yarn", "run", "start:dev" ]
+CMD [ "yarn", "run", "dev" ]
