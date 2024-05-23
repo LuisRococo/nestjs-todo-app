@@ -26,6 +26,8 @@ services:
       - "3001:3001"
     volumes:
       - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
     depends_on:
       - backend
     networks:
