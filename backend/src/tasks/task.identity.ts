@@ -32,7 +32,7 @@ export class Task {
   status: TaskStatus;
 
   // Task Relationship
-  @ManyToOne(() => Task, (task) => task.children)
+  @ManyToOne(() => Task, (task) => task.children, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'parentTaskId' })
   parentTask: Task;
 

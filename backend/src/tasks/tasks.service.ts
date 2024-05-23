@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.identity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { CreateTaskDto } from './dtos/create';
 
 @Injectable()
@@ -19,5 +19,20 @@ export class TasksService {
       parentTaskId: taskData.parentTask,
       userId,
     });
+  }
+
+  async getAll(
+    userId: number,
+    { page, limit }: { page: number; limit: number },
+  ) {
+    const queryOptions = {
+      where: { userId, parentTaskId: IsNull() },
+      relations: ['children'],
+      skip: (page - 1) * limit,
+      take: limit,
+    };
+
+    const tasks = this.taskRepository.find(queryOptions);
+    return tasks;
   }
 }
