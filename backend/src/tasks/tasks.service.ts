@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.identity';
 import { IsNull, Repository } from 'typeorm';
 import { CreateTaskDto } from './dtos/create';
+import { UpdateTaskDTO } from './dtos/update';
 
 @Injectable()
 export class TasksService {
@@ -55,5 +56,15 @@ export class TasksService {
 
     await this.taskRepository.remove(task);
     return task;
+  }
+
+  async update(id: number, taskData: UpdateTaskDTO) {
+    const task = await this.taskRepository.findOneBy({ id });
+
+    if (!task) throw new NotFoundException('Task does not exists');
+
+    await this.taskRepository.update(16, taskData);
+
+    return await this.taskRepository.findOneBy({ id });
   }
 }
