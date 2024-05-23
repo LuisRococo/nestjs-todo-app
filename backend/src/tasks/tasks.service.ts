@@ -11,6 +11,10 @@ export class TasksService {
     @InjectRepository(Task) private readonly taskRepository: Repository<Task>,
   ) {}
 
+  async getOne(id: number) {
+    return await this.taskRepository.findOneBy({ id });
+  }
+
   async create(taskData: CreateTaskDto, userId: number) {
     return await this.taskRepository.save({
       title: taskData.title,
