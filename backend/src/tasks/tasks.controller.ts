@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   Req,
@@ -14,6 +15,7 @@ import { CreateTaskDto } from './dtos/create';
 import { IRequest } from 'src/auth/interfaces';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { GetAllTasksQueryDTO } from './dtos/getAll';
+import { UpdateTaskDTO } from './dtos/update';
 
 @Controller('api/tasks')
 @UseGuards(AuthGuard)
@@ -38,5 +40,10 @@ export class TasksController {
   @Delete('/:id')
   delete(@Param('id') taskId: number) {
     return this.tasksService.delete(taskId);
+  }
+
+  @Patch('/:id')
+  patch(@Param('id') taskId: number, @Body() taskData: UpdateTaskDTO) {
+    return this.tasksService.update(taskId, taskData);
   }
 }
