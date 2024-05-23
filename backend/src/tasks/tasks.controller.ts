@@ -16,6 +16,7 @@ import { IRequest } from 'src/auth/interfaces';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { GetAllTasksQueryDTO } from './dtos/getAll';
 import { UpdateTaskDTO } from './dtos/update';
+import { TaskGuard } from './task.guard';
 
 @Controller('api/tasks')
 @UseGuards(AuthGuard)
@@ -37,11 +38,13 @@ export class TasksController {
     return this.tasksService.getAll(userId, { page, limit });
   }
 
+  @UseGuards(TaskGuard)
   @Delete('/:id')
   delete(@Param('id') taskId: number) {
     return this.tasksService.delete(taskId);
   }
 
+  @UseGuards(TaskGuard)
   @Patch('/:id')
   patch(@Param('id') taskId: number, @Body() taskData: UpdateTaskDTO) {
     return this.tasksService.update(taskId, taskData);
