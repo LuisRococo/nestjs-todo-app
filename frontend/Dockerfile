@@ -2,11 +2,11 @@ FROM node:20
 
 WORKDIR /app
 
-COPY ./frontend/package.json ./
-COPY ./frontend/yarn.lock ./
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install
 
-COPY ./frontend/ .
+COPY . .
 
 CMD [ "yarn", "run", "dev" ]
