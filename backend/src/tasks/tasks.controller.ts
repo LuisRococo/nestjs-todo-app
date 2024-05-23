@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Query,
   Req,
@@ -31,5 +33,10 @@ export class TasksController {
     const limit = 10;
 
     return this.tasksService.getAll(userId, { page, limit });
+  }
+
+  @Delete('/:id')
+  delete(@Param('id') taskId: number) {
+    return this.tasksService.delete(taskId);
   }
 }

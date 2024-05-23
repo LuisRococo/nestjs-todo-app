@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.identity';
 import { IsNull, Repository } from 'typeorm';
@@ -34,5 +34,26 @@ export class TasksService {
 
     const tasks = this.taskRepository.find(queryOptions);
     return tasks;
+  }
+
+  async delete(id) {
+    const task = await this.taskRepository.findOne({
+      where: { id },
+      relations: ['children'],
+    });
+
+    if (!task) {
+      throw new NotFoundException('Task was not found');
+    }
+
+    if (task.children.length !== 0) {
+      throw new HttpException(
+        'It is not possible to delete tasks with children',
+        400,
+      );
+    }
+
+    await this.taskRepository.remove(task);
+    return task;
   }
 }
