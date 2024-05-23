@@ -6,6 +6,8 @@ import { User } from './users/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
+import { Task } from './tasks/task.identity';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { Module } from '@nestjs/common';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [User, Task],
       synchronize: true,
     }),
     JwtModule.register({
@@ -26,6 +28,7 @@ import { Module } from '@nestjs/common';
     }),
     UsersModule,
     AuthModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
