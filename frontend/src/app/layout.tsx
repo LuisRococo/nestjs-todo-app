@@ -23,11 +23,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <AuthContext>
-            <div className="tw-min-h-screen">
-              <Navbar />
-              {children}
-              <Footer />
-            </div>
+            <Navbar />
+            <div className="tw-min-h-screen">{children}</div>
+            <Footer />
           </AuthContext>
         </AppRouterCacheProvider>
       </body>
