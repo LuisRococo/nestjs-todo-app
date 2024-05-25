@@ -5,26 +5,29 @@ import ControlSection from "@/components/todo/ControlSection/ControlSection";
 import Image from "next/image";
 import laptopGirlImg from "../../images/undraw_laptop-girl.svg";
 import TasksContainer from "@/components/todo/TasksContainer/TasksContainer";
+import { TaskContext } from "@/context/taskContext";
 
 const Page = () => {
   return (
     <Container maxWidth="xl">
-      <ControlSection />
+      <TaskContext>
+        <ControlSection />
 
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <TasksContainer />
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <TasksContainer />
+          </Grid>
+          <Grid item xs={6}>
+            <Image
+              src={laptopGirlImg}
+              width={700}
+              height={700}
+              style={{ width: "90%" }}
+              alt="laptop girl"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Image
-            src={laptopGirlImg}
-            width={700}
-            height={700}
-            style={{ width: "90%" }}
-            alt="laptop girl"
-          />
-        </Grid>
-      </Grid>
+      </TaskContext>
     </Container>
   );
 };

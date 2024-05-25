@@ -1,10 +1,11 @@
-import React from "react";
-import styles from "./styles.module.scss";
-import { tasksMock } from "@/mockData/tasksMocks";
+"use client";
+
+import React, { useContext } from "react";
 import TaskCard from "./TaskCard/TaskCard";
+import { CreatedTaskContext } from "@/context/taskContext";
 
 const TasksContainer = () => {
-  const tasks = tasksMock;
+  const { tasks } = useContext(CreatedTaskContext);
 
   return (
     <div className="tw-border-solid tw-border tw-border-slate-200 tw-rounded tw-p-5 tw-overflow-auto tw-mb-10">
