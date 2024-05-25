@@ -28,8 +28,8 @@ const TaskCard: FC<Props> = ({ task }) => {
       </Card>
 
       <div className="tw-ml-16 tw-mt-4">
-        {task.children?.map((children, index) => (
-          <TaskCard task={children} key={index} />
+        {task.children?.map((children) => (
+          <TaskCard task={children} key={children.id} />
         ))}
       </div>
     </div>

@@ -1,7 +1,18 @@
 "use server";
 
-export const getUserTasks = async (token: string, page: number) => {
-  const result = await fetch(`http://backend:3000/api/tasks?page=${page}`, {
+import { TaskStatus } from "@/app/interfaces/models/task";
+
+export const getUserTasks = async (
+  token: string,
+  page: number,
+  status: TaskStatus | "all"
+) => {
+  let url = `http://backend:3000/api/tasks?page=${page}`;
+  if (status !== "all") {
+    url += `&status=${status}`;
+  }
+
+  const result = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

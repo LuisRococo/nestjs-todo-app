@@ -1,6 +1,6 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Task } from './task.identity';
+import { Task, TaskStatus } from './task.identity';
 import { IsNull, Repository } from 'typeorm';
 import { CreateTaskDto } from './dtos/create';
 import { UpdateTaskDTO } from './dtos/update';
@@ -29,9 +29,10 @@ export class TasksService {
   async getAll(
     userId: number,
     { page, limit }: { page: number; limit: number },
+    status: TaskStatus | null,
   ) {
     const queryOptions = {
-      where: { userId, parentTaskId: IsNull() },
+      where: { userId, parentTaskId: IsNull(), status },
       relations: ['children'],
       skip: (page - 1) * limit,
       take: limit,

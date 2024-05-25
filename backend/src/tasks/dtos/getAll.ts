@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNumber, IsOptional, Min } from 'class-validator';
+import { TaskStatus } from '../task.identity';
 
 export class GetAllTasksQueryDTO {
   @IsOptional()
@@ -7,4 +8,8 @@ export class GetAllTasksQueryDTO {
   @Min(1)
   @Type(() => Number)
   page: number;
+
+  @IsOptional()
+  @IsEnum(TaskStatus)
+  status: TaskStatus;
 }

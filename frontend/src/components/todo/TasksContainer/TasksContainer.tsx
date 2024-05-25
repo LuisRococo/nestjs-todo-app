@@ -14,7 +14,7 @@ const TasksContainer = () => {
       )}
 
       {tasks.length !== 0 &&
-        tasks.map((task, index) => <TaskCard task={task} key={index} />)}
+        tasks.map((task) => <TaskCard task={task} key={task.id} />)}
     </div>
   );
 };
