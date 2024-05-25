@@ -13,7 +13,7 @@ interface Props {
 const InfoCard: FC<Props> = ({ color, description, Icon, title }) => {
   return (
     <Card sx={{ maxWidth: 345 }} className={styles.card}>
-      <CardActionArea>
+      <CardActionArea sx={{ paddingBottom: "20px" }}>
         <div className="tw-pt-7 tw-flex tw-justify-center">
           <div
             className={styles["card__icon-cont"]}
