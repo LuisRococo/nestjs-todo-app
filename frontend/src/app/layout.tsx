@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthContext } from "@/context/authContext";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <AuthContext>
-            <Navbar />
-            {children}
+            <div className="tw-min-h-screen">
+              <Navbar />
+              {children}
+              <Footer />
+            </div>
           </AuthContext>
         </AppRouterCacheProvider>
       </body>
