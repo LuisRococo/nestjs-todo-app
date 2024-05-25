@@ -1,21 +1,44 @@
-import { Input, InputLabel } from "@mui/material";
+import { Input, InputAdornment, InputLabel, TextField } from "@mui/material";
 import React, { FC } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { ControllerFieldState, UseFormRegister } from "react-hook-form";
 import { IconType } from "react-icons";
 
 interface Props {
   placeholder: string;
   label: string;
   Icon: IconType;
+  fieldData?: any;
+  fieldState?: ControllerFieldState;
+  type?: string;
 }
 
-const FormInput: FC<Props> = ({ label, placeholder, Icon }) => {
+const FormInput: FC<Props> = ({
+  label,
+  placeholder,
+  Icon,
+  fieldData,
+  type,
+  fieldState,
+}) => {
   return (
     <div>
-      <div className="tw-flex tw-gap-x-2">
-        <Icon style={{ fontSize: "30px" }} />
-        <Input sx={{ flex: 1 }} placeholder={placeholder} />
-      </div>
+      <p className="tw-text-slate-500">{label}</p>
+      <TextField
+        sx={{ width: "100%" }}
+        placeholder={placeholder}
+        type={type}
+        error={fieldState?.error}
+        helperText={fieldState?.error?.message}
+        autoComplete="on"
+        {...fieldData}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Icon style={{ fontSize: "30px" }} />
+            </InputAdornment>
+          ),
+        }}
+      />
     </div>
   );
 };

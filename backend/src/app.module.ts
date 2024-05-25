@@ -24,7 +24,7 @@ import { TasksModule } from './tasks/tasks.module';
     JwtModule.register({
       secretOrPrivateKey: process.env.SECRET,
       global: true,
-      signOptions: { expiresIn: '2h' },
+      signOptions: { expiresIn: '7d' },
     }),
     UsersModule,
     AuthModule,
