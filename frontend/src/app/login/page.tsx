@@ -37,7 +37,7 @@ const Page = () => {
 
     if (loadUser) {
       await loadUser();
-      push("/");
+      push("/todo");
     }
   };
 

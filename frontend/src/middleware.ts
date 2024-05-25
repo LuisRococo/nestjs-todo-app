@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
     }
 
     if (validToken && authRoutes.includes(requestRoute)) {
-      const response = NextResponse.redirect(new URL("/", request.url));
+      const response = NextResponse.redirect(new URL("/todo", request.url));
       return response;
     }
   } catch (e) {
