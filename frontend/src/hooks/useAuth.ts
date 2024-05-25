@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 const useAuth = () => {
   const [user, setUser] = useState<IUser | undefined>();
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
 
   const saveToken = (token: string) => {
     Cookies.set("token", token);
@@ -32,6 +32,7 @@ const useAuth = () => {
     Cookies.remove("token");
     setUser(undefined);
     push("/");
+    refresh();
   };
 
   return { saveToken, loadUser, user, logout };

@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 export const login = async (data: { email: string; password: string }) => {
   const result = await fetch("http://backend:3000/api/auth/signin", {
     body: JSON.stringify(data),
@@ -10,6 +12,8 @@ export const login = async (data: { email: string; password: string }) => {
   });
 
   const resultData = await result.json();
+
+  revalidatePath("/");
 
   return { status: result.status, ...resultData };
 };
