@@ -1,0 +1,15 @@
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("../../../images/pink-office.avif");
+  background-position: center;
+  background-size: cover;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .hero-content {
+    text-align: center;
+    color: white;
+  }
+}
