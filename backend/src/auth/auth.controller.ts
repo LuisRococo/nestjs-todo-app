@@ -1,4 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Header,
+  Headers,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { SignInDto } from 'src/auth/dtos/signIn.dto';
 import { AuthService } from './auth.service';
 import { SignUpDto } from 'src/auth/dtos/signup.dto';
@@ -14,7 +24,14 @@ export class AuthController {
   }
 
   @Post('/signin')
+  @HttpCode(200)
   signIn(@Body() data: SignInDto) {
     return this.authService.signIn(data);
+  }
+
+  @Get('/current-user')
+  @HttpCode(200)
+  getCurrentUser(@Headers('Authorization') token: string) {
+    return this.authService.getCurrentUser(token);
   }
 }

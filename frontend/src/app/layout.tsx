@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AuthContext } from "@/context/authContext";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <AppRouterCacheProvider>
+          <AuthContext>
+            <Navbar />
+            {children}
+          </AuthContext>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

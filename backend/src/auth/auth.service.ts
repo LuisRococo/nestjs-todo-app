@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignUpDto } from 'src/auth/dtos/signup.dto';
@@ -33,20 +38,20 @@ export class AuthService {
 
     if (foundUser) {
       const { password, id } = foundUser;
-      if (bcrypt.compare(user.password, password)) {
+      if (await bcrypt.compare(user.password, password)) {
         const payload = { id };
 
         return {
           token: this.jwtService.sign(payload),
         };
       }
-      return new HttpException(
+      throw new HttpException(
         'Incorrect username or password',
         HttpStatus.UNAUTHORIZED,
       );
     }
 
-    return new HttpException(
+    throw new HttpException(
       'Incorrect username or password',
       HttpStatus.UNAUTHORIZED,
     );
@@ -54,5 +59,18 @@ export class AuthService {
 
   getJwtTokenPayload(token: string) {
     return this.jwtService.decode(token);
+  }
+
+  async getCurrentUser(token: string) {
+    if (!token) throw new UnauthorizedException('No token was sent');
+
+    token = token.split(' ')[1];
+    const payload = this.getJwtTokenPayload(token);
+    const foundUser = await this.userRepository.findOneBy({ id: payload.id });
+
+    if (!foundUser)
+      throw new UnauthorizedException('The user id does not exists');
+
+    return foundUser;
   }
 }
