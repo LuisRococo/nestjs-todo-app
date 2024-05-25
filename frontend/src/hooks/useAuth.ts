@@ -20,7 +20,6 @@ const useAuth = () => {
 
       if (userResponse.status === 200) {
         setUser(userResponse.user);
-        console.log(userResponse.user);
         return;
       }
 
@@ -29,7 +28,13 @@ const useAuth = () => {
     }
   };
 
-  return { saveToken, loadUser, user };
+  const logout = () => {
+    Cookies.remove("token");
+    setUser(undefined);
+    push("/");
+  };
+
+  return { saveToken, loadUser, user, logout };
 };
 
 export default useAuth;

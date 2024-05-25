@@ -8,12 +8,13 @@ interface IAuthContext {
   user?: IUser;
   saveToken?: (token: string) => void;
   loadUser?: () => void;
+  logout?: () => void;
 }
 
 export const CreatedAuthContext = createContext<IAuthContext>({});
 
 export const AuthContext: FC<{ children: ReactNode }> = ({ children }) => {
-  const { user, saveToken, loadUser } = useAuth();
+  const { user, saveToken, loadUser, logout } = useAuth();
 
   const init = async () => {
     await loadUser();
@@ -24,7 +25,7 @@ export const AuthContext: FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   return (
-    <CreatedAuthContext.Provider value={{ user, saveToken, loadUser }}>
+    <CreatedAuthContext.Provider value={{ user, saveToken, loadUser, logout }}>
       {children}
     </CreatedAuthContext.Provider>
   );

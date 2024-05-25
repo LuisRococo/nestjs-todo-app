@@ -3,6 +3,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthContext } from "@/context/authContext";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppRouterCacheProvider>
-          <AuthContext>{children}</AuthContext>
+          <AuthContext>
+            <Navbar />
+            {children}
+          </AuthContext>
         </AppRouterCacheProvider>
       </body>
     </html>
