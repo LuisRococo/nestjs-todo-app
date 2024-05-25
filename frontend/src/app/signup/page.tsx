@@ -1,52 +1,81 @@
 "use client";
 
-import React, { useContext } from "react";
-import styles from "./styles.module.scss";
 import { Button, Paper } from "@mui/material";
-import FormInput from "@/components/FormInput";
-import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
+import React from "react";
+import styles from "./styles.module.scss";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { login } from "@/actions/auth";
-import { CreatedAuthContext } from "@/context/authContext";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import FormInput from "@/components/FormInput";
+import { IoPerson } from "react-icons/io5";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { MdEmail } from "react-icons/md";
 import Link from "next/link";
+import { signup } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 interface FormValues {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }
 
-const Page = () => {
-  const { control, handleSubmit, resetField } = useForm<FormValues>();
-  const { loadUser } = useContext(CreatedAuthContext);
+const page = () => {
+  const { handleSubmit, control } = useForm<FormValues>();
   const { push } = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { email, password } = data;
-    const response = await login({ email, password });
+    const result = await signup(data);
 
-    if (response.status !== 200) {
-      alert(response.message);
-      resetField("password");
+    if (result.status !== 201) {
+      alert(result.message);
       return;
     }
 
-    Cookies.set("token", response.token);
-
-    if (loadUser) {
-      await loadUser();
-      push("/");
-    }
+    push("/login");
   };
 
   return (
     <div className={styles.page}>
       <Paper elevation={3} className={styles.card}>
-        <h3 className="tw-font-bold tw-text-2xl tw-text-center">Sign In</h3>
+        <h3 className="tw-font-bold tw-text-2xl tw-text-center">Sign Up</h3>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <Controller
+            name="firstName"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: { value: true, message: "This field cant be empty" },
+            }}
+            render={({ field, fieldState }) => (
+              <FormInput
+                label="First Name"
+                placeholder="Your first name"
+                Icon={IoPerson}
+                fieldData={field}
+                fieldState={fieldState}
+              />
+            )}
+          />
+
+          <Controller
+            name="lastName"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: { value: true, message: "This field cant be empty" },
+            }}
+            render={({ field, fieldState }) => (
+              <FormInput
+                label="Last Name"
+                placeholder="Your last name"
+                Icon={IoPerson}
+                fieldData={field}
+                fieldState={fieldState}
+              />
+            )}
+          />
+
           <Controller
             name="email"
             control={control}
@@ -90,13 +119,13 @@ const Page = () => {
             variant="contained"
             size="large"
           >
-            Login
+            Sign Up
           </Button>
         </form>
 
         <div className="tw-flex tw-justify-center">
-          <Link href={"/signup"}>
-            <Button>Sign Up</Button>
+          <Link href={"/login"}>
+            <Button>Login</Button>
           </Link>
         </div>
       </Paper>
@@ -104,4 +133,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;
