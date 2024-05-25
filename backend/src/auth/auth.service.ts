@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -20,6 +21,14 @@ export class AuthService {
   ) {}
 
   async signUp(user: SignUpDto) {
+    const existingUser = await this.userRepository.findOneBy({
+      email: user.email,
+    });
+    if (existingUser)
+      throw new BadRequestException(
+        'An user with the same email already exists',
+      );
+
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(user.password, salt);
 
