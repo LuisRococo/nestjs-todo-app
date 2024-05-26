@@ -19,7 +19,7 @@ const Hero = () => {
           <p className="tw-mb-2">Lorem ipsum dolor sit amet.</p>
         </div>
 
-        <Link href={"/login"}>
+        <Link href={"/todo"}>
           <Button size="large" variant="contained">
             Get Started
           </Button>

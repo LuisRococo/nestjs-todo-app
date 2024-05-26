@@ -33,9 +33,10 @@ export class TasksController {
   getAll(@Req() req: IRequest, @Query() query: GetAllTasksQueryDTO) {
     const userId = req.user!.id;
     const page = query.page ? query.page : 1;
+    const status = query.status ? query.status : null;
     const limit = 10;
 
-    return this.tasksService.getAll(userId, { page, limit });
+    return this.tasksService.getAll(userId, { page, limit }, status);
   }
 
   @UseGuards(TaskGuard)

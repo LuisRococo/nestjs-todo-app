@@ -1,0 +1,18 @@
+.chip {
+  margin-bottom: 6px;
+
+  &.chip--todo {
+    color: white;
+    background-color: rgb(135, 135, 135);
+  }
+
+  &.chip--progress {
+    color: white;
+    background-color: rgb(40, 108, 246);
+  }
+
+  &.chip--done {
+    color: white;
+    background-color: rgb(47, 223, 20);
+  }
+}
