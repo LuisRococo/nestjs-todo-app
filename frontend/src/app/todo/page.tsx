@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./styles.module.scss";
 import { Container, Grid } from "@mui/material";
 import ControlSection from "@/components/todo/ControlSection/ControlSection";
 import Image from "next/image";

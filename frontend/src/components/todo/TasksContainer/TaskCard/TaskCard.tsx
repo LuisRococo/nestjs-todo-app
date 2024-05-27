@@ -1,19 +1,30 @@
+"use client";
+
 import { ITask } from "@/app/interfaces/models/task";
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import React, { FC } from "react";
 import TaskChip from "../../TaskChip/TaskChip";
+import { useRouter } from "next/navigation";
 
 interface Props {
   task: ITask;
 }
 
 const TaskCard: FC<Props> = ({ task }) => {
+  const { push } = useRouter();
+
+  const handleTaskCardClick = () => {
+    push(`/todo/${task.id}`);
+  };
+
   return (
     <div className="tw-mb-5">
       <Card sx={{ width: 300 }}>
-        <CardActionArea>
+        <CardActionArea onClick={handleTaskCardClick}>
           <CardContent>
-            <TaskChip status={task.status} />
+            <div className="tw-mb-2">
+              <TaskChip status={task.status} />
+            </div>
             <Typography variant="h5" component="div">
               {task.title}
             </Typography>
