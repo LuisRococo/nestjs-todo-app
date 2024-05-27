@@ -12,7 +12,14 @@ export class TasksService {
   ) {}
 
   async getOne(id: number) {
-    return await this.taskRepository.findOneBy({ id });
+    const task = await this.taskRepository.findOne({
+      where: { id },
+      relations: ['children'],
+    });
+
+    if (!task) throw new NotFoundException('The task was not found');
+
+    return task;
   }
 
   async create(taskData: CreateTaskDto, userId: number) {

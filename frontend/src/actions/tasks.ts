@@ -42,3 +42,18 @@ export const getTasksMetadata = async (
 
   return { status: result.status, ...resultData };
 };
+
+export const getTask = async (token: string, taskId: number) => {
+  const result = await fetch(
+    `${process.env.BACKEND_HOST}/api/tasks/${taskId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const resultData = await result.json();
+
+  return { status: result.status, task: resultData };
+};

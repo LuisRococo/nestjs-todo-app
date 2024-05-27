@@ -2,12 +2,10 @@ import {
   Body,
   Controller,
   Get,
-  Header,
   Headers,
   HttpCode,
   HttpStatus,
   Post,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { SignInDto } from 'src/auth/dtos/signIn.dto';
 import { AuthService } from './auth.service';
