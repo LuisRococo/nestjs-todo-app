@@ -57,3 +57,19 @@ export const getTask = async (token: string, taskId: number) => {
 
   return { status: result.status, task: resultData };
 };
+
+export const deleteTask = async (token: string, taskId: number) => {
+  const result = await fetch(
+    `${process.env.BACKEND_HOST}/api/tasks/${taskId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "DELETE",
+    }
+  );
+
+  const resultData = await result.json();
+
+  return { status: result.status, data: resultData };
+};
