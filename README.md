@@ -13,13 +13,17 @@ TODO APP using the following stack:
 
 # SETUP
 
-1. Create `.env`file
+1. Create `.env`file for `backend` and `frontend`
 
 ```
 $ cp ./backend/.env.template ./backend/.env
 ```
 
-1. Run docker
+```
+$ cp ./frontend/.env ./frontend/.env.local
+```
+
+2. Run docker
 
 ```
 $ docker compose up

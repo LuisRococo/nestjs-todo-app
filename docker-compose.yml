@@ -28,6 +28,7 @@ services:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
       - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
+      - ./frontend/.env.local:/app/.env.local
     depends_on:
       - backend
     networks:
