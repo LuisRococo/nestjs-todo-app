@@ -12,6 +12,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { ITask } from "@/app/interfaces/models/task";
 import SubtaskCard from "@/components/todo/SubtaskCard/SubtaskCard";
 import ReturnSection from "@/components/todo/ReturnSection/ReturnSection";
+import BigTaskCard from "@/components/todo/BigTaskCard/BigTaskCard";
 
 const Page = async ({ params }: { params: { taskId: number } }) => {
   const data = await getTask(cookies().get("token")!.value, params.taskId);
@@ -25,34 +26,7 @@ const Page = async ({ params }: { params: { taskId: number } }) => {
           <ReturnSection url="/todo" />
         </div>
 
-        <Paper elevation={3} className={styles.card}>
-          <div className="tw-flex tw-justify-between">
-            <TaskChip status={data.task.status} />
-
-            <div className="tw-flex tw-justify-end tw-items-center tw-text-slate-400 tw-justify-items-center">
-              <CiCalendar className="tw-mr-1 tw-text-xl" />
-              <p className="tw-text-right tw-italic">{data.task.dueDate}</p>
-            </div>
-          </div>
-
-          <h3 className="tw-font-bold tw-text-2xl tw-text-center">
-            {data.task.title}
-          </h3>
-
-          <p className="tw-text-center tw-my-5">{data.task.description}</p>
-
-          <div className="tw-flex tw-justify-center tw-gap-4">
-            <Link href={"/"}>
-              <Button startIcon={<MdDeleteOutline />} color="error">
-                Delete
-              </Button>
-            </Link>
-
-            <Link href={"/"}>
-              <Button startIcon={<BsPencilSquare />}>Update</Button>
-            </Link>
-          </div>
-        </Paper>
+        <BigTaskCard task={data.task} />
       </div>
 
       {data.task.children && data.task.children.length !== 0 && (
