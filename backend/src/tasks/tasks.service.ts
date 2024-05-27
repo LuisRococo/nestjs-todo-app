@@ -72,4 +72,11 @@ export class TasksService {
 
     return await this.taskRepository.findOneBy({ id });
   }
+
+  async getTaskMetadata(userId: number, status: TaskStatus | null) {
+    const count = await this.taskRepository.count({
+      where: { status, userId },
+    });
+    return { count };
+  }
 }

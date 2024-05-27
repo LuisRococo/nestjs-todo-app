@@ -17,6 +17,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { GetAllTasksQueryDTO } from './dtos/getAll';
 import { UpdateTaskDTO } from './dtos/update';
 import { TaskGuard } from './task.guard';
+import { TaskMetadataDto } from './dtos/metadata';
 
 @Controller('api/tasks')
 @UseGuards(AuthGuard)
@@ -49,5 +50,12 @@ export class TasksController {
   @Patch('/:id')
   patch(@Param('id') taskId: number, @Body() taskData: UpdateTaskDTO) {
     return this.tasksService.update(taskId, taskData);
+  }
+
+  @Get('/metadata')
+  get(@Req() req, @Query() query: TaskMetadataDto) {
+    const status = query.status ? query.status : null;
+    const userId = req.user!.id;
+    return this.tasksService.getTaskMetadata(userId, status);
   }
 }
