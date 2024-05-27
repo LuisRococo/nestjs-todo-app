@@ -6,6 +6,7 @@ import Image from "next/image";
 import laptopGirlImg from "../../images/undraw_laptop-girl.svg";
 import TasksContainer from "@/components/todo/TasksContainer/TasksContainer";
 import { TaskContext } from "@/context/taskContext";
+import TaskPagination from "@/components/todo/TaskPagination/TaskPagination";
 
 const Page = () => {
   return (
@@ -15,6 +16,10 @@ const Page = () => {
 
         <Grid container spacing={2}>
           <Grid item xs={6}>
+            <div className="tw-flex tw-justify-center tw-mb-4">
+              <TaskPagination />
+            </div>
+
             <TasksContainer />
           </Grid>
           <Grid item xs={6}>
