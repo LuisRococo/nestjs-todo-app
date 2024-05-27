@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 export const login = async (data: { email: string; password: string }) => {
-  const result = await fetch("http://backend:3000/api/auth/signin", {
+  const result = await fetch(`${process.env.BACKEND_HOST}/api/auth/signin`, {
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const signup = async (data: {
   lastName: string;
   password: string;
 }) => {
-  const result = await fetch("http://backend:3000/api/auth/signup", {
+  const result = await fetch(`${process.env.BACKEND_HOST}/api/auth/signup`, {
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
@@ -38,11 +38,14 @@ export const signup = async (data: {
 };
 
 export const getCurrentUser = async (token: string) => {
-  const result = await fetch("http://backend:3000/api/auth/current-user", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const result = await fetch(
+    `${process.env.BACKEND_HOST}/api/auth/current-user`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   const resultData = await result.json();
 

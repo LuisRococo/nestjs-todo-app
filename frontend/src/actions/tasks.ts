@@ -7,7 +7,7 @@ export const getUserTasks = async (
   page: number,
   status: TaskStatus | "all"
 ) => {
-  let url = `http://backend:3000/api/tasks?page=${page}`;
+  let url = `${process.env.BACKEND_HOST}/api/tasks?page=${page}`;
   if (status !== "all") {
     url += `&status=${status}`;
   }
@@ -27,7 +27,7 @@ export const getTasksMetadata = async (
   token: string,
   status: TaskStatus | "all"
 ) => {
-  let url = `http://backend:3000/api/tasks/metadata`;
+  let url = `${process.env.BACKEND_HOST}/api/tasks/metadata`;
   if (status !== "all") {
     url += `?status=${status}`;
   }

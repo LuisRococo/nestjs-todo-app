@@ -69,7 +69,11 @@ export const TaskContext: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     init();
-  }, [status, page]);
+  }, [status]);
+
+  useEffect(() => {
+    loadTasks();
+  }, [page]);
 
   return (
     <CreatedTaskContext.Provider
