@@ -28,6 +28,7 @@ const Page = () => {
               height={700}
               style={{ width: "90%" }}
               alt="laptop girl"
+              priority
             />
           </Grid>
         </Grid>
