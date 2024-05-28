@@ -51,7 +51,7 @@ const BigTaskCard: FC<Props> = ({ task }) => {
             Delete
           </Button>
 
-          <Link href={"/"}>
+          <Link href={`/edit-task/${task.id}`}>
             <Button startIcon={<BsPencilSquare />}>Update</Button>
           </Link>
         </div>
