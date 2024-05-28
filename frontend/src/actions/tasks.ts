@@ -2,12 +2,25 @@
 
 import { TaskStatus } from "@/app/interfaces/models/task";
 
+interface CreateTaskData {
+  title: string;
+  description: string;
+  dueDate: string;
+  status: TaskStatus;
+  parentTask: number | null;
+}
+
 export const getUserTasks = async (
   token: string,
-  page: number,
+  page: number | null,
   status: TaskStatus | "all"
 ) => {
-  let url = `${process.env.BACKEND_HOST}/api/tasks?page=${page}`;
+  let url = `${process.env.BACKEND_HOST}/api/tasks?`;
+
+  if (page) {
+    url += `page=${page}`;
+  }
+
   if (status !== "all") {
     url += `&status=${status}`;
   }
@@ -68,6 +81,21 @@ export const deleteTask = async (token: string, taskId: number) => {
       method: "DELETE",
     }
   );
+
+  const resultData = await result.json();
+
+  return { status: result.status, data: resultData };
+};
+
+export const createTask = async (token: string, taskData: CreateTaskData) => {
+  const result = await fetch(`${process.env.BACKEND_HOST}/api/tasks/`, {
+    body: JSON.stringify(taskData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+  });
 
   const resultData = await result.json();
 
