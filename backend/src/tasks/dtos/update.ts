@@ -11,4 +11,6 @@ export class UpdateTaskDTO {
   @IsOptional()
   @IsEnum(TaskStatus)
   status?: TaskStatus;
+  @IsOptional()
+  parentTask: number;
 }

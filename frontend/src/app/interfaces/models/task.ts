@@ -10,7 +10,7 @@ export interface ITask {
   id: number;
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: string;
   status: TaskStatus;
   parentTaskId?: number;
   parentTask?: ITask;

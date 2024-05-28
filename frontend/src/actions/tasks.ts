@@ -10,6 +10,8 @@ interface CreateTaskData {
   parentTask: number | null;
 }
 
+interface UpdateTaskData extends CreateTaskData {}
+
 export const getUserTasks = async (
   token: string,
   page: number | null,
@@ -96,6 +98,28 @@ export const createTask = async (token: string, taskData: CreateTaskData) => {
     },
     method: "POST",
   });
+
+  const resultData = await result.json();
+
+  return { status: result.status, data: resultData };
+};
+
+export const updateTask = async (
+  token: string,
+  taskId: number,
+  taskData: UpdateTaskData
+) => {
+  const result = await fetch(
+    `${process.env.BACKEND_HOST}/api/tasks/${taskId}`,
+    {
+      body: JSON.stringify(taskData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "PATCH",
+    }
+  );
 
   const resultData = await result.json();
 

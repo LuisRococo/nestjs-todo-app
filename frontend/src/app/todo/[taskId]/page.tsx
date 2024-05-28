@@ -3,12 +3,7 @@ import { cookies } from "next/headers";
 import { getTask } from "@/actions/tasks";
 import styles from "./styles.module.scss";
 import NotFoundPage from "@/app/not-found";
-import { Button, Container, Paper } from "@mui/material";
-import Link from "next/link";
-import { CiCalendar } from "react-icons/ci";
-import TaskChip from "@/components/todo/TaskChip/TaskChip";
-import { BsPencilSquare } from "react-icons/bs";
-import { MdDeleteOutline } from "react-icons/md";
+import { Container } from "@mui/material";
 import { ITask } from "@/app/interfaces/models/task";
 import SubtaskCard from "@/components/todo/SubtaskCard/SubtaskCard";
 import ReturnSection from "@/components/todo/ReturnSection/ReturnSection";
@@ -23,7 +18,7 @@ const Page = async ({ params }: { params: { taskId: number } }) => {
     <Container maxWidth="xl">
       <div className="tw-flex tw-justify-center tw-items-center tw-mt-20 tw-flex-col">
         <div className={styles["return-section"]}>
-          <ReturnSection url="/todo" />
+          <ReturnSection />
         </div>
 
         <BigTaskCard task={data.task} />
