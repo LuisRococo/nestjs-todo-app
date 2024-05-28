@@ -77,7 +77,15 @@ export class TasksService {
 
     if (!task) throw new NotFoundException('Task does not exists');
 
-    await this.taskRepository.update(16, taskData);
+    const newTaskData = {
+      title: taskData.title,
+      description: taskData.description,
+      dueDate: taskData.dueDate,
+      status: taskData.status,
+      parentTaskId: taskData.parentTask,
+    };
+
+    await this.taskRepository.update(id, newTaskData);
 
     return await this.taskRepository.findOneBy({ id });
   }
