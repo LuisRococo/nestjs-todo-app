@@ -8,11 +8,17 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 interface Props {
+  /**
+   * Task to be shown
+   */
   task: ITask;
   open: boolean;
   handleClose: () => void;
 }
 
+/**
+ * Modal for deleting a task.
+ */
 const DeleteTaskModal: FC<Props> = ({ handleClose, open, task }) => {
   const { push } = useRouter();
 

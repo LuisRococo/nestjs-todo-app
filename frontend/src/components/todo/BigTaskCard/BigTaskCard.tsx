@@ -15,6 +15,9 @@ interface Props {
   task: ITask;
 }
 
+/**
+ * Task Card for showing more info about a task
+ */
 const BigTaskCard: FC<Props> = ({ task }) => {
   const [modalOpen, setModalOpen] = useState(false);
 

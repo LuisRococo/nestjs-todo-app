@@ -10,6 +10,9 @@ interface Props {
   task: ITask;
 }
 
+/**
+ * Card showing card info. It is able to redirect on click to the task's specific page.
+ */
 const TaskCard: FC<Props> = ({ task }) => {
   const { push } = useRouter();
 
