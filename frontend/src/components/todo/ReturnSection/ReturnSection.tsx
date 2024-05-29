@@ -10,6 +10,9 @@ interface Props {
   url?: string;
 }
 
+/**
+ * Return/navigate to other url component.
+ */
 const ReturnSection: FC<Props> = ({ text, url }) => {
   const { push, back } = useRouter();
   text ??= "Go back";

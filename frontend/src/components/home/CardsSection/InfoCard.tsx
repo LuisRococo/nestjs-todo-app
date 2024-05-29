@@ -10,9 +10,12 @@ interface Props {
   description: string;
 }
 
+/**
+ * Show info with text, description and Icon.
+ */
 const InfoCard: FC<Props> = ({ color, description, Icon, title }) => {
   return (
-    <Card sx={{ maxWidth: 345 }} className={styles.card}>
+    <Card sx={{ maxWidth: 345, minWidth: 300 }} className={styles.card}>
       <CardActionArea sx={{ paddingBottom: "20px" }}>
         <div className="tw-pt-7 tw-flex tw-justify-center">
           <div
