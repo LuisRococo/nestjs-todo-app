@@ -4,7 +4,7 @@ export const taskMock: ITask = {
   id: 1,
   title: "Task Title",
   description: "Task Description",
-  dueDate: new Date(),
+  dueDate: new Date().toString(),
   status: TaskStatus.TODO,
   userId: 1,
 };

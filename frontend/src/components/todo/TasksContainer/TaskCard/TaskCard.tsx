@@ -28,7 +28,7 @@ const TaskCard: FC<Props> = ({ task }) => {
             <div className="tw-mb-2">
               <TaskChip status={task.status} />
             </div>
-            <Typography variant="h5" component="div">
+            <Typography data-testid="tc-title" variant="h5" component="div">
               {task.title}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -36,7 +36,9 @@ const TaskCard: FC<Props> = ({ task }) => {
                 task.children.length > 0 &&
                 `${task.children.length} subtasks`}
             </Typography>
-            <Typography variant="body2">{task.description}</Typography>
+            <Typography data-testid="tc-desc" variant="body2">
+              {task.description}
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
