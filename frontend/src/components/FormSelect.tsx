@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { ControllerFieldState } from "react-hook-form";
 
 export interface FormSelectItem {
-  id: number;
+  id: any;
   title: string;
 }
 
