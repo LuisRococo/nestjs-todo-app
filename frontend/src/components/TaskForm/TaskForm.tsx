@@ -10,7 +10,11 @@ import FormSelect, { FormSelectItem } from "../FormSelect";
 import { createTask, getUserTasks, updateTask } from "@/actions/tasks";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { formatDate, taskToFormSelectItems } from "@/utils/utils";
+import {
+  formatDate,
+  taskStatusFormSelectItems,
+  taskToFormSelectItems,
+} from "@/utils/utils";
 import { ITask, TaskStatus } from "@/app/interfaces/models/task";
 import Loading from "@/app/loading";
 
@@ -19,6 +23,7 @@ interface FormValues {
   description: string;
   dueDate: string;
   parentTask: number | "none";
+  status?: TaskStatus;
 }
 
 interface Props {
@@ -71,7 +76,7 @@ const TaskForm: FC<Props> = ({ task }) => {
       title: formValues.title,
       description: formValues.description,
       dueDate: formValues.dueDate,
-      status: TaskStatus.TODO,
+      status: editMode ? formValues.status! : TaskStatus.TODO,
       parentTask,
     };
 
@@ -83,7 +88,7 @@ const TaskForm: FC<Props> = ({ task }) => {
       result = await createTask(Cookies.get("token")!, taskData);
     }
 
-    if (result.status !== 200) {
+    if (result.status !== 200 && result.status !== 201) {
       alert(result.data.message);
       return;
     }
@@ -175,6 +180,22 @@ const TaskForm: FC<Props> = ({ task }) => {
                 />
               )}
             />
+
+            {editMode && (
+              <Controller
+                name="status"
+                control={control}
+                defaultValue={task.status}
+                render={({ field, fieldState }) => (
+                  <FormSelect
+                    label="Status"
+                    fieldData={field}
+                    fieldState={fieldState}
+                    values={taskStatusFormSelectItems()}
+                  />
+                )}
+              />
+            )}
 
             <Button
               type="submit"
