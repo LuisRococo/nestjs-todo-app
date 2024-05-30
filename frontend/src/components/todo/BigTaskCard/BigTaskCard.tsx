@@ -39,7 +39,10 @@ const BigTaskCard: FC<Props> = ({ task }) => {
           </div>
         </div>
 
-        <h3 className="tw-font-bold tw-text-2xl tw-text-center">
+        <h3
+          className="tw-font-bold tw-text-2xl tw-text-center"
+          data-testid="btc-title"
+        >
           {task.title}
         </h3>
 

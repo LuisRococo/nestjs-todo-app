@@ -28,7 +28,9 @@ const ReturnSection: FC<Props> = ({ text, url }) => {
   return (
     <div className={styles["return-sec"]} onClick={handleOnClick}>
       <FaRegArrowAltCircleLeft className="tw-text-2xl tw-text-blue-500 tw-mr-2" />
-      <p className="tw-text-slate-400">{text}</p>
+      <p className="tw-text-slate-400" data-testid="rc-text">
+        {text}
+      </p>
     </div>
   );
 };

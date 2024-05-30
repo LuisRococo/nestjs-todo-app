@@ -41,7 +41,7 @@ const DeleteTaskModal: FC<Props> = ({ handleClose, open, task }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <div className={styles.modal}>
+      <div className={styles.modal} data-testid="delete-modal">
         <div className="tw-flex tw-justify-center tw-mb-4">
           <IoWarningOutline className="tw-text-red-500 tw-text-5xl" />
         </div>
@@ -64,6 +64,7 @@ const DeleteTaskModal: FC<Props> = ({ handleClose, open, task }) => {
             className="tw-w-full"
             variant="contained"
             onClick={handleClose}
+            data-testid="dm-cancel-btn"
           >
             Cancel
           </Button>

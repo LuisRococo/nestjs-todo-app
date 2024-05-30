@@ -26,10 +26,19 @@ const InfoCard: FC<Props> = ({ color, description, Icon, title }) => {
           </div>
         </div>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            data-testid="ic-title"
+          >
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            data-testid="ic-desc"
+          >
             {description}
           </Typography>
         </CardContent>
