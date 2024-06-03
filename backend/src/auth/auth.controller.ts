@@ -17,19 +17,19 @@ export class AuthController {
 
   @Post('/signup')
   @HttpCode(HttpStatus.CREATED)
-  signUp(@Body() user: SignUpDto) {
+  async signUp(@Body() user: SignUpDto) {
     return this.authService.signUp(user);
   }
 
   @Post('/signin')
   @HttpCode(200)
-  signIn(@Body() data: SignInDto) {
+  async signIn(@Body() data: SignInDto) {
     return this.authService.signIn(data);
   }
 
   @Get('/current-user')
   @HttpCode(200)
-  getCurrentUser(@Headers('Authorization') token: string) {
+  async getCurrentUser(@Headers('Authorization') token: string) {
     return this.authService.getCurrentUser(token);
   }
 }
