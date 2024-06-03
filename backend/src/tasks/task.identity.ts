@@ -1,11 +1,13 @@
 import { User } from 'src/users/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum TaskStatus {
@@ -30,6 +32,12 @@ export class Task {
 
   @Column({ type: 'enum', enum: TaskStatus })
   status: TaskStatus;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   // Task Relationship
   @ManyToOne(() => Task, (task) => task.children, { onDelete: 'CASCADE' })

@@ -1,16 +1,22 @@
-version: "3.8"
-
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
+    restart: "always"
+    environment:
+      - SECRET=${NESTJS_SECRET}
+      - DB_HOST=${MYSQL_HOST}
+      - DB_PORT=${MYSQL_PORT}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=${MYSQL_DB}
+      - PORT=${NESTJS_PORT}
     ports:
-      - "3000:3000"
+      - "${NESTJS_PORT}:${NESTJS_PORT}"
     volumes:
       - ./backend/src:/app/src
-      - ./backend/.env:/app/.env
     depends_on:
       db:
         condition: service_healthy
@@ -22,13 +28,17 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend
+    restart: "always"
+    environment:
+      - BACKEND_HOST=${NESTJS_URL}
+      - PORT=${NEXTJS_PORT}
     ports:
-      - "3001:3001"
+      - "${NEXTJS_PORT}:${NEXTJS_PORT}"
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
       - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
-      - ./frontend/.env.local:/app/.env.local
+      # - ./frontend/.env.local:/app/.env.local
     depends_on:
       - backend
     networks:
@@ -37,12 +47,13 @@ services:
   db:
     image: mysql
     container_name: db
+    restart: "always"
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: rootroot
-      MYSQL_DATABASE: todo_db
+      MYSQL_ROOT_USER: ${MYSQL_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
     volumes:
       - ./dbdata:/var/lib/mysql
     networks:
@@ -60,8 +71,8 @@ services:
     ports:
       - 8080:80
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootroot
+      PMA_HOST: ${MYSQL_HOST}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - db
     networks:

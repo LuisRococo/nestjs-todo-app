@@ -25,25 +25,25 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get('/metadata')
-  get(@Req() req, @Query() query: TaskMetadataDto) {
+  async get(@Req() req, @Query() query: TaskMetadataDto) {
     const status = query.status ? query.status : null;
     const userId = req.user!.id;
     return this.tasksService.getTaskMetadata(userId, status);
   }
 
   @Get('/:id')
-  getOne(@Param('id') taskId: number) {
+  async getOne(@Param('id') taskId: number) {
     return this.tasksService.getOne(taskId);
   }
 
   @Post('/')
-  create(@Body() taskData: CreateTaskDto, @Req() req: IRequest) {
+  async create(@Body() taskData: CreateTaskDto, @Req() req: IRequest) {
     const userId = req.user!.id;
     return this.tasksService.create(taskData, userId);
   }
 
   @Get('/')
-  getAll(@Req() req: IRequest, @Query() query: GetAllTasksQueryDTO) {
+  async getAll(@Req() req: IRequest, @Query() query: GetAllTasksQueryDTO) {
     const userId = req.user!.id;
     const status = query.status ? query.status : null;
     const limit = 10;
@@ -57,13 +57,13 @@ export class TasksController {
 
   @UseGuards(TaskGuard)
   @Delete('/:id')
-  delete(@Param('id') taskId: number) {
+  async delete(@Param('id') taskId: number) {
     return this.tasksService.delete(taskId);
   }
 
   @UseGuards(TaskGuard)
   @Patch('/:id')
-  patch(@Param('id') taskId: number, @Body() taskData: UpdateTaskDTO) {
+  async patch(@Param('id') taskId: number, @Body() taskData: UpdateTaskDTO) {
     return this.tasksService.update(taskId, taskData);
   }
 }

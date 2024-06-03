@@ -13,14 +13,10 @@ TODO APP using the following stack:
 
 # SETUP
 
-1. Create `.env`file for `backend` and `frontend`
+1. Create `.env`
 
 ```
-$ cp ./backend/.env.template ./backend/.env
-```
-
-```
-$ cp ./frontend/.env ./frontend/.env.local
+$ cp .env.template .env
 ```
 
 2. Run docker
