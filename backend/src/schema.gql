@@ -1,0 +1,38 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  tasks(page: Int, status: TaskStatus): [Task!]!
+}
+
+"""task"""
+type Task {
+  children: [Task!]!
+  description: String!
+  dueDate: Date!
+  id: ID!
+  parentTask: Task
+  parentTaskId: Float!
+  status: TaskStatus!
+  title: String!
+  user: User
+  userId: Float!
+}
+
+enum TaskStatus {
+  DONE
+  IN_PROGRESS
+  TODO
+}
+
+"""user"""
+type User {
+  email: String!
+  firstName: String!
+  id: ID!
+  lastName: String!
+}

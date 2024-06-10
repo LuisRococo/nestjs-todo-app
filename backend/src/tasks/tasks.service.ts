@@ -40,7 +40,7 @@ export class TasksService {
   ) {
     let queryOptions: FindManyOptions<Task> = {
       where: { userId, parentTaskId: IsNull(), status },
-      relations: ['children'],
+      relations: ['children', 'user'],
     };
 
     if (page) {

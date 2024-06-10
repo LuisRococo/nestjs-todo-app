@@ -9,6 +9,10 @@ import { Task } from './tasks/task.identity';
 import { TasksModule } from './tasks/tasks.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { GraphqlModule } from './graphql/graphql.module';
 
 @Module({
   imports: [
@@ -36,9 +40,16 @@ import { JwtModule } from '@nestjs/jwt';
       ignoreEnvFile: true,
       isGlobal: true,
     }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+      context: (ctx) => ({ user: ctx.req }),
+    }),
     UsersModule,
     AuthModule,
     TasksModule,
+    GraphqlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

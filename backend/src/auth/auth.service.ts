@@ -82,4 +82,6 @@ export class AuthService {
 
     return foundUser;
   }
+
+  // async getUserFromGQLContext(context: )
 }

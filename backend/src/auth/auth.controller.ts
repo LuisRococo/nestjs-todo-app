@@ -6,10 +6,12 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { SignInDto } from 'src/auth/dtos/signIn.dto';
 import { AuthService } from './auth.service';
 import { SignUpDto } from 'src/auth/dtos/signup.dto';
+import { AuthGuard } from './auth.guard';
 
 @Controller('api/auth')
 export class AuthController {
@@ -27,6 +29,7 @@ export class AuthController {
     return this.authService.signIn(data);
   }
 
+  @UseGuards(AuthGuard)
   @Get('/current-user')
   @HttpCode(200)
   async getCurrentUser(@Headers('Authorization') token: string) {
