@@ -44,7 +44,7 @@ import { GraphqlModule } from './graphql/graphql.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
-      context: (ctx) => ({ user: ctx.req }),
+      context: (ctx) => ({ user: ctx.req.user }),
     }),
     UsersModule,
     AuthModule,

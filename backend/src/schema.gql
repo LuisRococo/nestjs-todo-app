@@ -6,6 +6,7 @@
 scalar Date
 
 type Query {
+  Task(id: Int!): Task!
   tasks(page: Int, status: TaskStatus): [Task!]!
 }
 
