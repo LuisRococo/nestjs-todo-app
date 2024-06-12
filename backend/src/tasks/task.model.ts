@@ -4,7 +4,7 @@ import { User } from 'src/users/user.model';
 
 @ObjectType({ description: 'task' })
 export class Task {
-  @Field((type) => ID)
+  @Field((type) => Number)
   id: number;
 
   @Field()
