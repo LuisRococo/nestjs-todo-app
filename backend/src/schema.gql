@@ -2,11 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateTaskInput {
+  description: String!
+  dueDate: Date!
+  parentTask: Float
+  status: TaskStatus!
+  title: String!
+}
+
 """Date custom scalar type"""
 scalar Date
 
+type Mutation {
+  createTask(taskData: CreateTaskInput!): Task!
+}
+
 type Query {
-  Task(id: Int!): Task!
+  task(id: Int!): Task!
   tasks(page: Int, status: TaskStatus): [Task!]!
 }
 
@@ -15,7 +27,7 @@ type Task {
   children: [Task!]!
   description: String!
   dueDate: Date!
-  id: ID!
+  id: Float!
   parentTask: Task
   parentTaskId: Float!
   status: TaskStatus!

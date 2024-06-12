@@ -1,4 +1,4 @@
-import { Args, Context, Int, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TasksService } from './tasks.service';
 import { Task } from './task.model';
 import {
@@ -9,6 +9,7 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { User } from 'src/users/user.entity';
 import { TaskStatus } from './task.identity';
+import { CreateTaskInput } from './graphql-types/create';
 
 @UseGuards(AuthGuard)
 @Resolver((of) => Task)
@@ -34,7 +35,7 @@ export class TaskResolver {
 
   @UseGuards(AuthGuard)
   @Query((returns) => Task)
-  async Task(
+  async task(
     @Context('user') user: User,
     @Args('id', { type: () => Int }) id: number,
   ): Promise<Task> {
@@ -48,5 +49,19 @@ export class TaskResolver {
       );
 
     return task;
+  }
+
+  @UseGuards(AuthGuard)
+  @Mutation((returns) => Task)
+  async createTask(
+    @Context('user') user: User,
+    @Args('taskData', { type: () => CreateTaskInput })
+    taskData: CreateTaskInput,
+  ): Promise<Task> {
+    const newTask = await this.tasksService.create(
+      { ...taskData, dueDate: taskData.dueDate },
+      user.id,
+    );
+    return newTask;
   }
 }
